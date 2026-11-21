@@ -21,7 +21,7 @@
     return `${m}:${s.toFixed(1).padStart(4, "0")}`;
   };
   // aspect ratios of the source videos per setting
-  const AR = { robot_short: "4 / 3", robot_long: "4 / 3", i2v: "1280 / 704", t2v: "832 / 480", pdd: "832 / 480", streaming: "832 / 480" };
+  const AR = { robot: "4 / 3", i2v: "1280 / 704", streaming: "832 / 480" };
 
   /* ------------------------------------------------------------- lazy video */
   const lazyIO = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
@@ -40,18 +40,15 @@
   /* ------------------------------------------------------------------- reel */
   function buildReels() {
     const pools = [
-      [...(DATA.t2v || []), ...(DATA.i2v || []).slice(0, 6), ...(DATA.robot_long || [])].map((s, i) => ({ s, i })),
-      [...(DATA.streaming || []), ...(DATA.pdd || []), ...(DATA.i2v || []).slice(6), ...(DATA.robot_short || [])].map((s, i) => ({ s, i })),
+      [...(DATA.i2v || []).slice(0, 6), ...(DATA.robot || []).slice(0, 4), ...(DATA.streaming || []).slice(0, 4)].map((s, i) => ({ s, i })),
+      [...(DATA.streaming || []).slice(4), ...(DATA.i2v || []).slice(6), ...(DATA.robot || []).slice(4)].map((s, i) => ({ s, i })),
     ];
     const tags = new Map(), gens = new Map();
     // [setting, corner tag, generator subtitle shown on hover]
     for (const [k, label, gen] of [
-      ["t2v", "T2V", "Wan2.1-1.3B · 4-step DMD2 distilled"],
       ["i2v", "I2V", "Wan2.2-5B · 4-step DMD2 distilled"],
-      ["pdd", "PDD", "Wan2.1-1.3B · PDD distilled"],
       ["streaming", "Streaming", "Causal Wan2.1-1.3B · Self-Forcing distilled"],
-      ["robot_long", "Robot", "Cosmos3-Nano-16B · Self-Forcing distilled"],
-      ["robot_short", "Robot", "Cosmos3-Nano-16B · Self-Forcing distilled"],
+      ["robot", "Robot", "Cosmos3-Nano-16B · Self-Forcing distilled"],
     ])
       for (const s of DATA[k] || []) { tags.set(s, label); gens.set(s, gen); }
     document.querySelectorAll(".reel-row").forEach((row) => {
@@ -75,6 +72,8 @@
   /* ----------------------------------------------------------------- viewer */
   const ICON_PLAY = '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>';
   const ICON_PAUSE = '<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+  const ICON_PREV = '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>';
+  const ICON_NEXT = '<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>';
   const ICON_RESTART = '<svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>';
 
   function buildViewer(root) {
@@ -92,6 +91,10 @@
       return { m, v, node: el("div", { class: `cell ${kind}` }, [v, el("span", { class: "label", text: m.label })]) };
     });
     const stage = el("div", { class: "stage" }, cells.map((c) => c.node));
+    const btnPrev = el("button", { class: "nav prev", type: "button", "aria-label": "Previous sample" });
+    const btnNext = el("button", { class: "nav next", type: "button", "aria-label": "Next sample" });
+    btnPrev.innerHTML = ICON_PREV; btnNext.innerHTML = ICON_NEXT;
+    const stageWrap = el("div", { class: "stage-wrap" }, [stage, samples.length > 1 ? btnPrev : null, samples.length > 1 ? btnNext : null]);
     const btnPlay = el("button", { class: "ctrl", type: "button", "aria-label": "Play" });
     btnPlay.innerHTML = ICON_PLAY;
     const btnRestart = el("button", { class: "ctrl", type: "button", "aria-label": "Restart" });
@@ -99,15 +102,28 @@
     const fill = el("div", { class: "fill" }), knob = el("div", { class: "knob" });
     const scrub = el("div", { class: "scrub", role: "slider", "aria-label": "Seek", tabindex: "0", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": "0" }, [fill, knob]);
     const time = el("span", { class: "time", text: "0:00.0 / 0:00.0" });
-    const controls = el("div", { class: "controls" }, [btnPlay, btnRestart, scrub, time]);
+    // optional playback-speed toggle, e.g. data-speeds="5,2,1" (first = default)
+    const speeds = (root.dataset.speeds || "").split(",").map(Number).filter((x) => x > 0);
+    let rate = speeds[0] || 1;
+    const speedBox = speeds.length ? el("div", { class: "speeds", role: "group", "aria-label": "Playback speed" }) : null;
+    const applyRate = () => allVids.forEach((v) => { v.defaultPlaybackRate = rate; v.playbackRate = rate; });
+    speeds.forEach((x) => {
+      const b = el("button", { class: "speed", type: "button", "aria-pressed": x === rate ? "true" : "false", title: `${x}× speed` });
+      b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6l7 6-7 6zM12 6l7 6-7 6z"/></svg>${x}×`;
+      b.addEventListener("click", () => {
+        rate = x; applyRate();
+        speedBox.querySelectorAll(".speed").forEach((n) => n.setAttribute("aria-pressed", n === b ? "true" : "false"));
+      });
+      speedBox.append(b);
+    });
+    const controls = el("div", { class: "controls" }, [btnPlay, btnRestart, scrub, time, speedBox]);
     const caption = el("p", { class: "caption" });
-    const picker = el("div", { class: "picker", role: "group", "aria-label": "Choose a sample" });
-    root.append(stage, controls, caption, picker);
+    root.append(stageWrap, controls, caption);
 
     const allVids = cells.map((c) => c.v);
     let vids = allVids;          // columns present for the current sample (some are optional)
     let master = vids[0];
-    let playing = false, loaded = false, current = 0, visible = false;
+    let playing = false, loaded = false, current = 0, visible = false, t0 = 0;
 
     const setPlayIcon = () => { btnPlay.innerHTML = playing ? ICON_PAUSE : ICON_PLAY; btnPlay.setAttribute("aria-label", playing ? "Pause" : "Play"); };
     const playAll = () => { playing = true; setPlayIcon(); vids.forEach((v) => v.play().catch(() => {})); };
@@ -124,22 +140,27 @@
         if (has) { c.v.poster = s.posters[c.m.key]; c.v.src = s.videos[c.m.key]; c.v.load(); }
         else { c.v.removeAttribute("src"); c.v.removeAttribute("poster"); c.v.load(); }
       });
+      applyRate();
+      t0 = s.t0 || 0;     // clips cut from a longer rollout show the original rollout time
       vids = cells.filter((c) => !c.node.hidden).map((c) => c.v);
       master = vids[0];
       stage.style.setProperty("--cols", vids.length);
       loaded = true;
       caption.innerHTML = "";
       caption.append(el("span", { class: "cap-k", text: `${idx + 1} / ${samples.length}` }), document.createTextNode(s.caption));
-      picker.querySelectorAll(".pick").forEach((p, i) => p.setAttribute("aria-pressed", i === idx ? "true" : "false"));
       if (visible) playAll(); else pauseAll();
     }
 
-    samples.forEach((s, i) => {
-      const b = el("button", { class: "pick", type: "button", "aria-pressed": "false", "aria-label": s.caption }, [
-        el("img", { src: s.posters.ours, alt: "", loading: "lazy" }), el("span", { text: String(i + 1) }),
-      ]);
-      b.addEventListener("click", () => load(i));
-      picker.append(b);
+    const step = (d) => load((current + d + samples.length) % samples.length);
+    btnPrev.addEventListener("click", () => step(-1));
+    btnNext.addEventListener("click", () => step(1));
+    // swipe left/right on touch screens
+    let sx = null;
+    stage.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 50 && samples.length > 1) step(dx < 0 ? 1 : -1);
     });
 
     // keep followers in sync with the master clock; restart together at the end
@@ -149,8 +170,8 @@
       const p = d ? (t / d) * 100 : 0;
       fill.style.width = p + "%"; knob.style.left = p + "%";
       scrub.setAttribute("aria-valuenow", Math.round(p));
-      time.textContent = `${fmt(t)} / ${fmt(d)}`;
-      for (const v of vids) if (v !== master && Math.abs(v.currentTime - t) > 0.15) { try { v.currentTime = t; } catch (_) {} }
+      time.textContent = `${fmt(t + t0)} / ${fmt(d + t0)}`;
+      for (const v of vids) if (v !== master && Math.abs(v.currentTime - t) > 0.15 * rate) { try { v.currentTime = t; } catch (_) {} }
     }));
     allVids.forEach((v) => v.addEventListener("ended", () => {
       if (!vids.includes(v)) return;

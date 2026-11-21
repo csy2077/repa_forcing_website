@@ -41,7 +41,6 @@ STREAM_EXCLUDE = ("A close-up shot of a living flame wisp",)
 SFL = "self_forcing_long"
 SF_TEASER = "self forcing (rollout to 30s using deepforcing)"
 i2v_id = lambda f: int(f.split("i2v_")[1].split("_")[0])
-pdd_id = lambda f: int(f.split("student_")[1].split("_")[0])
 
 
 def stream_sample(dmd2_path, repa_path):
@@ -59,17 +58,27 @@ def teaser_stream():
     return out
 
 
-# setting -> list of samples; each sample: {"id", "caption", "videos": {method: src}}
+# setting -> list of samples; each sample: {"id", "caption", "videos": {method: src}, optional "clip": (start, end|None)}
 # teaser picks come first in each setting.
+def robot(ep, long, start, end=None):
+    """One robot episode cut to [start, end] seconds (end=None: to the last frame)."""
+    if long:
+        sf, ours, frames = s("robot", "dmd2_long", ep), s("robot", "repa_long", ep), 321
+    elif ep == "teaser":
+        sf, ours, frames = t("robot", "dmd2", "vision.mp4"), t("robot", "repa", "vision.mp4"), 165
+    else:
+        sf, ours, frames = s("robot", "dmd2", ep), s("robot", "repa", ep), 165
+    n = {"vision.mp4": 1, "vision2.mp4": 2, "vision3.mp4": 3, "vision4.mp4": 4, "teaser": 4}[ep]
+    span = f"{start:g}–{end:g} s" if end else f"from {start:g} s"
+    return dict(id=f"{'l' if long else 's'}{n}", caption=f"Episode {n} · {frames}-frame rollout · {span}",
+                videos={"sf": sf, "ours": ours}, clip=(start, end))
+
+
 SETTINGS = {
-    "robot_short": [dict(id=f"r{i}", caption=f"Episode {i}",
-                         videos={"sf": s("robot", "dmd2", v), "ours": s("robot", "repa", v)})
-                    for i, v in enumerate(["vision.mp4", "vision2.mp4", "vision3.mp4"], 1)]
-                   + [dict(id="r4", caption="Episode 4",
-                           videos={"sf": t("robot", "dmd2", "vision.mp4"), "ours": t("robot", "repa", "vision.mp4")})],
-    "robot_long": [dict(id=f"r{i}", caption=f"Episode {i}",
-                        videos={"sf": s("robot", "dmd2_long", v), "ours": s("robot", "repa_long", v)})
-                   for i, v in enumerate(["vision.mp4", "vision2.mp4", "vision3.mp4", "vision4.mp4"], 1)],
+    "robot": [robot("vision2.mp4", True, 17), robot("vision3.mp4", True, 17),
+              robot("vision.mp4", False, 2, 8), robot("vision3.mp4", False, 4),
+              robot("teaser", False, 5), robot("vision2.mp4", False, 4),
+              robot("vision4.mp4", True, 17)],
     "i2v": [dict(id=f"t{i2v_id(f)}", caption="",
                  videos={"dmd2": t("i2v", "dmd2", f), "ours": t("i2v", "repa", f)})
             for f in sorted(mp4s(t("i2v", "dmd2")), key=i2v_id)]
@@ -80,25 +89,18 @@ SETTINGS = {
                  + [stream_sample(s(SFL, "dynamics", "dmd2", f), s(SFL, "dynamics", "repa", f)) for f in mp4s(s(SFL, "dynamics", "dmd2"))]
                  + [stream_sample(s(SFL, "dmd2", f), s(SFL, "repa", f)) for f in mp4s(s(SFL, "dmd2"))
                     if not f.startswith(STREAM_EXCLUDE)],
-    "t2v": [dict(id="t123", caption="", videos={"dmd2": t("wan t2v dmd", "dmd2", "dmd2_123.mp4"),
-                                               "ours": t("wan t2v dmd", "repa", "omni_123.mp4")})]
-           + [dict(id=f"w{n}", caption="", videos={"dmd2": s("want2v", "dmd2", f"dmd2_{n}.mp4"),
-                                                  "ours": s("want2v", "repa", f"omni_{n}.mp4"),
-                                                  **({"gt": t("gt_37.mp4")} if n == 37 else {})})
-              for n in [3, 16, 19, 34, 37, 89, 101, 120, 190, 233]],   # 233 is also in the teaser folder (identical)
-    "pdd": [dict(id=f"t{pdd_id(f)}", caption="", videos={"pdd": t("pdd", "pdd", f), "ours": t("pdd", "repa_forcing", f)})
-            for f in mp4s(t("pdd", "pdd"))]
-           + [dict(id=f"w{pdd_id(f)}", caption="", videos={"pdd": s("pdd", "dmd2", f), "ours": s("pdd", "repa", f)})
-              for f in mp4s(s("pdd", "dmd2"))],
 }
 
 
 def encode(job):
-    src, dst, poster = job
+    src, dst, poster, clip = job
     if os.path.exists(dst) and os.path.exists(poster):
         return
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-map_metadata", "-1", "-an",
+    cut = []
+    if clip:
+        cut = ["-ss", str(clip[0])] + (["-t", str(clip[1] - clip[0])] if clip[1] else [])
+    subprocess.run(["ffmpeg", "-v", "error", "-y", *cut, "-i", src, "-map_metadata", "-1", "-an",
                     "-vf", "scale=-2:'min(480,ih)'", "-c:v", "libx264", "-preset", "slow", "-crf", "26",
                     "-pix_fmt", "yuv420p", "-movflags", "+faststart", dst], check=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "0.5", "-i", dst, "-frames:v", "1",
@@ -114,11 +116,13 @@ def main():
         for n, smp in enumerate(samples, 1):
             caption = smp["caption"] or (f"Episode {n}" if setting.startswith("robot") else f"Sample {n}")
             entry = dict(id=smp["id"], caption=caption, videos={}, posters={})
+            if smp.get("clip"):
+                entry["t0"] = smp["clip"][0]          # shown as the original rollout time
             for method, src in smp["videos"].items():
                 assert os.path.exists(src), src
                 rel = f"assets/videos/{setting}/{smp['id']}_{method}"
                 dst, poster = os.path.join(HERE, rel + ".mp4"), os.path.join(HERE, rel + ".jpg")
-                jobs.append((src, dst, poster))
+                jobs.append((src, dst, poster, smp.get("clip")))
                 keep.update([dst, poster])
                 entry["videos"][method] = rel + ".mp4"
                 entry["posters"][method] = rel + ".jpg"

@@ -31,8 +31,6 @@
       <a href="#method">Method</a>
       <a href="#i2v">Image-to-Video</a>
       <a href="#streaming">Streaming</a>
-      <a href="#t2v">Text-to-Video</a>
-      <a href="#pdd">PDD</a>
       <a href="#bibtex">BibTeX</a>
     </nav>
     <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false">
@@ -82,7 +80,6 @@
         <div class="stat hl"><p class="k">Robot world model · Cosmos3-Nano-16B</p><p class="v"><span class="from">18.45</span><span class="arrow">→</span><span class="to">19.06</span></p><p class="d">PSNR on 321-frame rollouts; the gain grows with rollout length</p></div>
         <div class="stat"><p class="k">Image-to-video · Wan2.2-5B</p><p class="v"><span class="from">1.017</span><span class="arrow">→</span><span class="to">0.724</span></p><p class="d">MMD² to ground truth on held-out physical processes ↓</p></div>
         <div class="stat"><p class="k">Streaming · 30-second rollouts</p><p class="v"><span class="from">41.2</span><span class="arrow">→</span><span class="to">59.0</span></p><p class="d">Dynamic degree over Self-Forcing, 6× the training length</p></div>
-        <div class="stat"><p class="k">Text-to-video · Wan2.1-1.3B</p><p class="v"><span class="from">0.462</span><span class="arrow">→</span><span class="to">0.496</span></p><p class="d">PhyGenBench overall, 4-step DMD2</p></div>
       </div>
     </div>
   </section>
@@ -126,20 +123,12 @@
         </div>
       </div>
 
-      <div class="explorer" data-tabs>
+      <div class="explorer">
         <div class="explorer-head">
-          <div class="tabs" role="tablist" aria-label="Rollout length">
-            <button class="tab" role="tab" aria-selected="true" aria-controls="robot-long" id="tab-robot-long" type="button">321 frames · 21 s</button>
-            <button class="tab" role="tab" aria-selected="false" aria-controls="robot-short" id="tab-robot-short" type="button">165 frames · 11 s</button>
-          </div>
-          <p class="hint">Videos play in sync. Pick an episode below.</p>
+          <h3 class="card-title">Held-out episodes · 165- and 321-frame rollouts</h3>
+          <p class="hint">Clips show the late part of each rollout, where errors accumulate. Videos play in sync; use the arrows to switch episodes.</p>
         </div>
-        <div class="tabpanel" id="robot-long" role="tabpanel" aria-labelledby="tab-robot-long">
-          <div class="viewer big" data-setting="robot_long" data-methods="sf:Self-Forcing (SF),ours:REPA-Forcing (Ours)"></div>
-        </div>
-        <div class="tabpanel" id="robot-short" role="tabpanel" aria-labelledby="tab-robot-short" hidden>
-          <div class="viewer big" data-setting="robot_short" data-methods="sf:Self-Forcing (SF),ours:REPA-Forcing (Ours)"></div>
-        </div>
+        <div class="viewer big" data-setting="robot" data-methods="sf:Self-Forcing (SF),ours:REPA-Forcing (Ours)"></div>
       </div>
     </div>
   </section>
@@ -197,29 +186,7 @@
         <h2 class="section-title">Streaming Video Generation · 30-Second Rollouts</h2>
         <p class="section-sub">Both causal Wan2.1-1.3B students are trained on 5-second clips. Beyond the training horizon, the motion of Self-Forcing decays, while REPA-Forcing keeps the same level of dynamics over the whole rollout.</p>
       </div>
-      <div class="viewer" data-setting="streaming" data-methods="sf:Self-Forcing (SF),ours:SF + Ours"></div>
-    </div>
-  </section>
-
-  <!-- ================================================================= t2v -->
-  <section class="block" id="t2v">
-    <div class="container wide">
-      <div class="section-head">
-        <h2 class="section-title">Text-to-Video · Wan2.1-1.3B · 4-Step DMD2</h2>
-        <p class="section-sub">Same prompt and seed for every column. Where the real training video for the prompt is available, it is shown for reference.</p>
-      </div>
-      <div class="viewer" data-setting="t2v" data-methods="gt:Real video,dmd2:DMD2,ours:DMD2 + Ours"></div>
-    </div>
-  </section>
-
-  <!-- ================================================================= pdd -->
-  <section class="block" id="pdd">
-    <div class="container wide">
-      <div class="section-head">
-        <h2 class="section-title">Trajectory-Based Distillation · PDD · Wan2.1-1.3B</h2>
-        <p class="section-sub">The relational loss does not depend on the form of the distillation loss: we add it, unchanged, to Parallel Decoding Distillation.</p>
-      </div>
-      <div class="viewer" data-setting="pdd" data-methods="pdd:PDD,ours:PDD + Ours"></div>
+      <div class="viewer" data-setting="streaming" data-methods="sf:Self-Forcing (SF),ours:SF + Ours" data-speeds="5,2,1"></div>
     </div>
   </section>
 
