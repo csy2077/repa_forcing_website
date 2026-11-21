@@ -92,17 +92,29 @@ SETTINGS = {
 }
 
 
+# pre-rendered fast-forward copies (played at 1x: smooth in every browser, unlike playbackRate=5
+# on a 16 fps clip with sparse keyframes). speed -> output fps (5x16=80 fps is halved to 40).
+SPEEDS = {"streaming": {5: 40, 2: 32}}
+
+
 def encode(job):
-    src, dst, poster, clip = job
-    if os.path.exists(dst) and os.path.exists(poster):
+    src, dst, poster, clip, speed = job
+    if os.path.exists(dst) and (poster is None or os.path.exists(poster)):
         return
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     cut = []
     if clip:
         cut = ["-ss", str(clip[0])] + (["-t", str(clip[1] - clip[0])] if clip[1] else [])
+    vf, gop = "scale=-2:'min(480,ih)'", []
+    if speed:
+        sp, fps = speed
+        vf = f"setpts=PTS/{sp},fps={fps}," + vf
+        gop = ["-g", str(fps)]               # a keyframe every second for quick seeks
     subprocess.run(["ffmpeg", "-v", "error", "-y", *cut, "-i", src, "-map_metadata", "-1", "-an",
-                    "-vf", "scale=-2:'min(480,ih)'", "-c:v", "libx264", "-preset", "slow", "-crf", "26",
+                    "-vf", vf, *gop, "-c:v", "libx264", "-preset", "slow", "-crf", "26",
                     "-pix_fmt", "yuv420p", "-movflags", "+faststart", dst], check=True)
+    if poster is None:
+        return
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "0.5", "-i", dst, "-frames:v", "1",
                     "-vf", "scale=640:-2", "-q:v", "4", poster], check=True)
 
@@ -122,7 +134,12 @@ def main():
                 assert os.path.exists(src), src
                 rel = f"assets/videos/{setting}/{smp['id']}_{method}"
                 dst, poster = os.path.join(HERE, rel + ".mp4"), os.path.join(HERE, rel + ".jpg")
-                jobs.append((src, dst, poster, smp.get("clip")))
+                jobs.append((src, dst, poster, smp.get("clip"), None))
+                for sp, fps in SPEEDS.get(setting, {}).items():
+                    fdst = os.path.join(HERE, f"{rel}_x{sp}.mp4")
+                    jobs.append((src, fdst, None, smp.get("clip"), (sp, fps)))
+                    keep.add(fdst)
+                    entry.setdefault("fast", {}).setdefault(str(sp), {})[method] = f"{rel}_x{sp}.mp4"
                 keep.update([dst, poster])
                 entry["videos"][method] = rel + ".mp4"
                 entry["posters"][method] = rel + ".jpg"

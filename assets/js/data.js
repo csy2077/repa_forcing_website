@@ -237,6 +237,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-chinese-boy-wearing-glasses-sits-in-a-fast-food-restaurant-enj_sf.jpg",
     "ours": "assets/videos/streaming/p-a-chinese-boy-wearing-glasses-sits-in-a-fast-food-restaurant-enj_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-chinese-boy-wearing-glasses-sits-in-a-fast-food-restaurant-enj_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-chinese-boy-wearing-glasses-sits-in-a-fast-food-restaurant-enj_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-chinese-boy-wearing-glasses-sits-in-a-fast-food-restaurant-enj_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-chinese-boy-wearing-glasses-sits-in-a-fast-food-restaurant-enj_ours_x2.mp4"
+    }
    }
   },
   {
@@ -249,6 +259,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf.jpg",
     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours_x2.mp4"
+    }
    }
   },
   {
@@ -261,6 +281,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_sf.jpg",
     "ours": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_ours_x2.mp4"
+    }
    }
   },
   {
@@ -273,6 +303,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf.jpg",
     "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours_x2.mp4"
+    }
    }
   },
   {
@@ -285,6 +325,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-cinematic-35mm-film-style-extreme-close-up-of-a-gray-haired-ma_sf.jpg",
     "ours": "assets/videos/streaming/p-a-cinematic-35mm-film-style-extreme-close-up-of-a-gray-haired-ma_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-cinematic-35mm-film-style-extreme-close-up-of-a-gray-haired-ma_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-cinematic-35mm-film-style-extreme-close-up-of-a-gray-haired-ma_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-cinematic-35mm-film-style-extreme-close-up-of-a-gray-haired-ma_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-cinematic-35mm-film-style-extreme-close-up-of-a-gray-haired-ma_ours_x2.mp4"
+    }
    }
   },
   {
@@ -297,6 +347,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-close-up-of-an-older-man-standing-in-a-dimly-lit-warehouse-his_sf.jpg",
     "ours": "assets/videos/streaming/p-a-close-up-of-an-older-man-standing-in-a-dimly-lit-warehouse-his_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-close-up-of-an-older-man-standing-in-a-dimly-lit-warehouse-his_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-close-up-of-an-older-man-standing-in-a-dimly-lit-warehouse-his_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-close-up-of-an-older-man-standing-in-a-dimly-lit-warehouse-his_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-close-up-of-an-older-man-standing-in-a-dimly-lit-warehouse-his_ours_x2.mp4"
+    }
    }
   },
   {
@@ -309,6 +369,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-close-up-shot-of-a-young-woman-driving-a-car-lost-in-thought-a_sf.jpg",
     "ours": "assets/videos/streaming/p-a-close-up-shot-of-a-young-woman-driving-a-car-lost-in-thought-a_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-close-up-shot-of-a-young-woman-driving-a-car-lost-in-thought-a_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-close-up-shot-of-a-young-woman-driving-a-car-lost-in-thought-a_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-close-up-shot-of-a-young-woman-driving-a-car-lost-in-thought-a_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-close-up-shot-of-a-young-woman-driving-a-car-lost-in-thought-a_ours_x2.mp4"
+    }
    }
   },
   {
@@ -321,6 +391,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf.jpg",
     "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours_x2.mp4"
+    }
    }
   },
   {
@@ -333,6 +413,16 @@ window.REPA_DATA = {
    "posters": {
     "sf": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_sf.jpg",
     "ours": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_ours_x2.mp4"
+    }
    }
   }
  ]

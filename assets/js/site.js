@@ -102,16 +102,20 @@
     const fill = el("div", { class: "fill" }), knob = el("div", { class: "knob" });
     const scrub = el("div", { class: "scrub", role: "slider", "aria-label": "Seek", tabindex: "0", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": "0" }, [fill, knob]);
     const time = el("span", { class: "time", text: "0:00.0 / 0:00.0" });
-    // optional playback-speed toggle, e.g. data-speeds="5,2,1" (first = default)
+    // optional speed toggle, e.g. data-speeds="5,2,1" (first = default). Fast speeds swap in
+    // pre-rendered fast-forward files (sample.fast[speed]) played at 1x, which stay smooth.
     const speeds = (root.dataset.speeds || "").split(",").map(Number).filter((x) => x > 0);
     let rate = speeds[0] || 1;
     const speedBox = speeds.length ? el("div", { class: "speeds", role: "group", "aria-label": "Playback speed" }) : null;
-    const applyRate = () => allVids.forEach((v) => { v.defaultPlaybackRate = rate; v.playbackRate = rate; });
+    const srcOf = (s, k, r) => (r !== 1 && s.fast && s.fast[r] && s.fast[r][k]) || s.videos[k];
+    const rateOf = (s) => (rate !== 1 && s.fast && s.fast[rate] ? rate : 1);
     speeds.forEach((x) => {
       const b = el("button", { class: "speed", type: "button", "aria-pressed": x === rate ? "true" : "false", title: `${x}× speed` });
       b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6l7 6-7 6zM12 6l7 6-7 6z"/></svg>${x}×`;
       b.addEventListener("click", () => {
-        rate = x; applyRate();
+        if (x === rate) return;
+        const frac = master && master.duration ? master.currentTime / master.duration : 0;
+        rate = x; load(current, frac);
         speedBox.querySelectorAll(".speed").forEach((n) => n.setAttribute("aria-pressed", n === b ? "true" : "false"));
       });
       speedBox.append(b);
@@ -123,24 +127,24 @@
     const allVids = cells.map((c) => c.v);
     let vids = allVids;          // columns present for the current sample (some are optional)
     let master = vids[0];
-    let playing = false, loaded = false, current = 0, visible = false, t0 = 0;
+    let playing = false, loaded = false, current = 0, visible = false, t0 = 0, vrate = 1;
 
     const setPlayIcon = () => { btnPlay.innerHTML = playing ? ICON_PAUSE : ICON_PLAY; btnPlay.setAttribute("aria-label", playing ? "Pause" : "Play"); };
     const playAll = () => { playing = true; setPlayIcon(); vids.forEach((v) => v.play().catch(() => {})); };
     const pauseAll = () => { playing = false; setPlayIcon(); vids.forEach((v) => v.pause()); };
     const seekAll = (t) => vids.forEach((v) => { try { v.currentTime = t; } catch (_) {} });
 
-    function load(idx) {
+    function load(idx, frac = 0) {
       current = idx;
       const s = samples[idx];
       pauseAll();
       cells.forEach((c) => {
         const has = !!s.videos[c.m.key];
         c.node.hidden = !has;
-        if (has) { c.v.poster = s.posters[c.m.key]; c.v.src = s.videos[c.m.key]; c.v.load(); }
+        if (has) { c.v.poster = s.posters[c.m.key]; c.v.src = srcOf(s, c.m.key, rate); c.v.load(); }
         else { c.v.removeAttribute("src"); c.v.removeAttribute("poster"); c.v.load(); }
       });
-      applyRate();
+      vrate = rateOf(s);
       t0 = s.t0 || 0;     // clips cut from a longer rollout show the original rollout time
       vids = cells.filter((c) => !c.node.hidden).map((c) => c.v);
       master = vids[0];
@@ -148,6 +152,12 @@
       loaded = true;
       caption.innerHTML = "";
       caption.append(el("span", { class: "cap-k", text: `${idx + 1} / ${samples.length}` }), document.createTextNode(s.caption));
+      if (frac > 0) {     // speed change: keep the same position in the rollout
+        vids.forEach((v) => {
+          const go = () => { try { v.currentTime = frac * v.duration; } catch (_) {} };
+          if (v.readyState >= 1) go(); else v.addEventListener("loadedmetadata", go, { once: true });
+        });
+      }
       if (visible) playAll(); else pauseAll();
     }
 
@@ -170,8 +180,8 @@
       const p = d ? (t / d) * 100 : 0;
       fill.style.width = p + "%"; knob.style.left = p + "%";
       scrub.setAttribute("aria-valuenow", Math.round(p));
-      time.textContent = `${fmt(t + t0)} / ${fmt(d + t0)}`;
-      for (const v of vids) if (v !== master && Math.abs(v.currentTime - t) > 0.15 * rate) { try { v.currentTime = t; } catch (_) {} }
+      time.textContent = `${fmt(t * vrate + t0)} / ${fmt(d * vrate + t0)}`;   // in rollout time
+      for (const v of vids) if (v !== master && Math.abs(v.currentTime - t) > 0.15) { try { v.currentTime = t; } catch (_) {} }
     }));
     allVids.forEach((v) => v.addEventListener("ended", () => {
       if (!vids.includes(v)) return;
