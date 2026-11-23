@@ -87,7 +87,7 @@
     const cells = methods.map((m) => {
       const v = el("video", { muted: "", playsinline: "", preload: "none" });
       v.muted = true;
-      const kind = m.key === "ours" ? "ours" : m.key === "teacher" ? "teacher" : "base";
+      const kind = m.key === "ours" ? "ours" : m.key === "teacher" ? "teacher" : m.key === "gt" ? "gt" : "base";
       return { m, v, node: el("div", { class: `cell ${kind}` }, [v, el("span", { class: "label", text: m.label })]) };
     });
     const stage = el("div", { class: "stage" }, cells.map((c) => c.node));
@@ -151,7 +151,8 @@
       stage.style.setProperty("--cols", vids.length);
       loaded = true;
       caption.innerHTML = "";
-      caption.append(el("span", { class: "cap-k", text: `${idx + 1} / ${samples.length}` }), document.createTextNode(s.caption));
+      caption.append(el("span", { class: "cap-k", text: `${idx + 1} / ${samples.length}` }),
+        s.tag ? el("span", { class: "cap-tag", text: s.tag }) : null, document.createTextNode(s.caption));
       if (frac > 0) {     // speed change: keep the same position in the rollout
         vids.forEach((v) => {
           const go = () => { try { v.currentTime = frac * v.duration; } catch (_) {} };

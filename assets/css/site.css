@@ -372,3 +372,9 @@ button { font: inherit; color: inherit; }
 .speed:hover { color: var(--ink); }
 .speed[aria-pressed="true"] { background: var(--ours); color: #0b0c0f; }
 @media (max-width: 560px) { .controls { flex-wrap: wrap; } .time { min-width: 0; } .speeds { order: 5; margin-left: auto; } }
+.cell.gt .label { color: var(--ink); border-color: rgba(255, 255, 255, .35); }
+.caption .cap-tag {
+  display: inline-block; margin-right: 10px; padding: 1px 10px; border-radius: 999px; vertical-align: 1px;
+  font-size: 12px; font-weight: 600; color: var(--hl);
+  border: 1px solid rgba(240, 179, 90, .45); background: rgba(240, 179, 90, .08);
+}

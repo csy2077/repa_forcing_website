@@ -35,12 +35,49 @@ def slug(text, n=64):
 
 
 # ---------------------------------------------------------------- exclusions
-I2V_EXCLUDE = {27, 104}                       # small-ball press, helicopter
 STREAM_EXCLUDE = ("A close-up shot of a living flame wisp",)
 
 SFL = "self_forcing_long"
 SF_TEASER = "self forcing (rollout to 30s using deepforcing)"
 i2v_id = lambda f: int(f.split("i2v_")[1].split("_")[0])
+
+
+I2V_DIR = "selected_align_vs_dmd2_vs_gt_i2v"
+
+
+def snippet(text):
+    """index.tsv keeps only the first 80 characters of each caption: cut at a word boundary."""
+    text = text.strip()
+    return text if len(text) < 70 else text.rsplit(" ", 1)[0].rstrip(",;:") + "…"
+
+
+# category order on the page (folders not listed here are appended alphabetically)
+I2V_ORDER = ["liquid_motion", "rigid_body_motion", "collision", "explosion", "combustion",
+             "gas_motion", "melting", "solidification"]
+
+
+def i2v_samples():
+    """Held-out physical processes, grouped by category: DMD2 / DMD2 + Ours / ground truth.
+    Samples come from the folders; index.tsv only supplies (truncated) captions."""
+    caps = {}
+    for line in open(s(I2V_DIR, "index.tsv")):
+        cat, idx, _, text = line.rstrip("\n").split("\t", 3)
+        caps[int(idx)] = snippet(text)
+    cats = [c for c in I2V_ORDER if os.path.isdir(s(I2V_DIR, c))]
+    cats += sorted(c for c in os.listdir(s(I2V_DIR)) if os.path.isdir(s(I2V_DIR, c)) and c not in cats)
+    out = []
+    for cat in cats:
+        files = mp4s(s(I2V_DIR, cat))
+        for f in files:
+            m = re.match(r"idx(\d+)_ours_align\.mp4$", f)
+            if not m:
+                continue
+            idx = int(m.group(1))
+            gt = next(g for g in files if g.startswith(f"idx{m.group(1)}_gt_"))
+            out.append(dict(id=f"g{idx}", caption=caps.get(idx, ""), tag=cat.replace("_", " ").capitalize(),
+                            videos={"dmd2": s(I2V_DIR, cat, f"idx{m.group(1)}_baseline_dmd2.mp4"),
+                                    "ours": s(I2V_DIR, cat, f), "gt": s(I2V_DIR, cat, gt)}))
+    return out
 
 
 def stream_sample(dmd2_path, repa_path):
@@ -79,12 +116,7 @@ SETTINGS = {
               robot("vision.mp4", False, 2, 8), robot("vision3.mp4", False, 4),
               robot("teaser", False, 5), robot("vision2.mp4", False, 4),
               robot("vision4.mp4", True, 17)],
-    "i2v": [dict(id=f"t{i2v_id(f)}", caption="",
-                 videos={"dmd2": t("i2v", "dmd2", f), "ours": t("i2v", "repa", f)})
-            for f in sorted(mp4s(t("i2v", "dmd2")), key=i2v_id)]
-           + [dict(id=f"w{i2v_id(f)}", caption="",
-                   videos={"dmd2": s("wani2v", "dmd2", f), "ours": s("wani2v", "repa", f)})
-              for f in sorted(mp4s(s("wani2v", "dmd2")), key=i2v_id) if i2v_id(f) not in I2V_EXCLUDE],
+    "i2v": i2v_samples(),
     "streaming": teaser_stream()
                  + [stream_sample(s(SFL, "dynamics", "dmd2", f), s(SFL, "dynamics", "repa", f)) for f in mp4s(s(SFL, "dynamics", "dmd2"))]
                  + [stream_sample(s(SFL, "dmd2", f), s(SFL, "repa", f)) for f in mp4s(s(SFL, "dmd2"))
@@ -126,8 +158,10 @@ def main():
         ids = [smp["id"] for smp in samples]
         assert len(ids) == len(set(ids)), f"duplicate ids in {setting}"
         for n, smp in enumerate(samples, 1):
-            caption = smp["caption"] or (f"Episode {n}" if setting.startswith("robot") else f"Sample {n}")
+            caption = smp["caption"] or ("" if smp.get("tag") else f"Episode {n}" if setting.startswith("robot") else f"Sample {n}")
             entry = dict(id=smp["id"], caption=caption, videos={}, posters={})
+            if smp.get("tag"):
+                entry["tag"] = smp["tag"]
             if smp.get("clip"):
                 entry["t0"] = smp["clip"][0]          # shown as the original rollout time
             for method, src in smp["videos"].items():
