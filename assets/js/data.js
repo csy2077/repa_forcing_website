@@ -106,142 +106,38 @@ window.REPA_DATA = {
     "ours": "assets/videos/i2v/g32_ours.jpg",
     "gt": "assets/videos/i2v/g32_gt.jpg"
    },
-   "tag": "Liquid motion"
+   "tag": "Rigid body motion"
   },
   {
-   "id": "g35",
+   "id": "g35_3-5s",
    "caption": "The video captures a high-speed fluid-impact event: a fast-moving horizontal…",
    "videos": {
-    "dmd2": "assets/videos/i2v/g35_dmd2.mp4",
-    "ours": "assets/videos/i2v/g35_ours.mp4",
-    "gt": "assets/videos/i2v/g35_gt.mp4"
+    "dmd2": "assets/videos/i2v/g35_3-5s_dmd2.mp4",
+    "ours": "assets/videos/i2v/g35_3-5s_ours.mp4",
+    "gt": "assets/videos/i2v/g35_3-5s_gt.mp4"
    },
    "posters": {
-    "dmd2": "assets/videos/i2v/g35_dmd2.jpg",
-    "ours": "assets/videos/i2v/g35_ours.jpg",
-    "gt": "assets/videos/i2v/g35_gt.jpg"
+    "dmd2": "assets/videos/i2v/g35_3-5s_dmd2.jpg",
+    "ours": "assets/videos/i2v/g35_3-5s_ours.jpg",
+    "gt": "assets/videos/i2v/g35_3-5s_gt.jpg"
    },
-   "tag": "Liquid motion"
+   "tag": "Liquid motion",
+   "t0": 3
   },
   {
-   "id": "g101",
-   "caption": "The video captures a pressure-driven rupture and viscous fluid release: a…",
+   "id": "g18",
+   "caption": "The video captures a rapid, visible crystal growth process, specifically the…",
    "videos": {
-    "dmd2": "assets/videos/i2v/g101_dmd2.mp4",
-    "ours": "assets/videos/i2v/g101_ours.mp4",
-    "gt": "assets/videos/i2v/g101_gt.mp4"
+    "dmd2": "assets/videos/i2v/g18_dmd2.mp4",
+    "ours": "assets/videos/i2v/g18_ours.mp4",
+    "gt": "assets/videos/i2v/g18_gt.mp4"
    },
    "posters": {
-    "dmd2": "assets/videos/i2v/g101_dmd2.jpg",
-    "ours": "assets/videos/i2v/g101_ours.jpg",
-    "gt": "assets/videos/i2v/g101_gt.jpg"
+    "dmd2": "assets/videos/i2v/g18_dmd2.jpg",
+    "ours": "assets/videos/i2v/g18_ours.jpg",
+    "gt": "assets/videos/i2v/g18_gt.jpg"
    },
-   "tag": "Liquid motion"
-  },
-  {
-   "id": "g109",
-   "caption": "The video captures the implosive collapse of a natural sea arch, a large…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g109_dmd2.mp4",
-    "ours": "assets/videos/i2v/g109_ours.mp4",
-    "gt": "assets/videos/i2v/g109_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g109_dmd2.jpg",
-    "ours": "assets/videos/i2v/g109_ours.jpg",
-    "gt": "assets/videos/i2v/g109_gt.jpg"
-   },
-   "tag": "Liquid motion"
-  },
-  {
-   "id": "g206",
-   "caption": "The video captures the continuous free-fall and impact of a powerful…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g206_dmd2.mp4",
-    "ours": "assets/videos/i2v/g206_ours.mp4",
-    "gt": "assets/videos/i2v/g206_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g206_dmd2.jpg",
-    "ours": "assets/videos/i2v/g206_ours.jpg",
-    "gt": "assets/videos/i2v/g206_gt.jpg"
-   },
-   "tag": "Liquid motion"
-  },
-  {
-   "id": "g65",
-   "caption": "The video captures the continuous free-fall and impact of a high mountain…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g65_dmd2.mp4",
-    "ours": "assets/videos/i2v/g65_ours.mp4",
-    "gt": "assets/videos/i2v/g65_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g65_dmd2.jpg",
-    "ours": "assets/videos/i2v/g65_ours.jpg",
-    "gt": "assets/videos/i2v/g65_gt.jpg"
-   },
-   "tag": "Rigid body motion"
-  },
-  {
-   "id": "g92",
-   "caption": "The video captures the takeoff rotation and initial climb of a large…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g92_dmd2.mp4",
-    "ours": "assets/videos/i2v/g92_ours.mp4",
-    "gt": "assets/videos/i2v/g92_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g92_dmd2.jpg",
-    "ours": "assets/videos/i2v/g92_ours.jpg",
-    "gt": "assets/videos/i2v/g92_gt.jpg"
-   },
-   "tag": "Rigid body motion"
-  },
-  {
-   "id": "g155",
-   "caption": "The video depicts a steady, low-altitude forward flight of a heavy aircraft…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g155_dmd2.mp4",
-    "ours": "assets/videos/i2v/g155_ours.mp4",
-    "gt": "assets/videos/i2v/g155_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g155_dmd2.jpg",
-    "ours": "assets/videos/i2v/g155_ours.jpg",
-    "gt": "assets/videos/i2v/g155_gt.jpg"
-   },
-   "tag": "Rigid body motion"
-  },
-  {
-   "id": "g354",
-   "caption": "The video captures the takeoff roll and liftoff of a single-engine amphibious…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g354_dmd2.mp4",
-    "ours": "assets/videos/i2v/g354_ours.mp4",
-    "gt": "assets/videos/i2v/g354_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g354_dmd2.jpg",
-    "ours": "assets/videos/i2v/g354_ours.jpg",
-    "gt": "assets/videos/i2v/g354_gt.jpg"
-   },
-   "tag": "Rigid body motion"
-  },
-  {
-   "id": "g46",
-   "caption": "The video documents the steady translational motion of an elevated monorail…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g46_dmd2.mp4",
-    "ours": "assets/videos/i2v/g46_ours.mp4",
-    "gt": "assets/videos/i2v/g46_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g46_dmd2.jpg",
-    "ours": "assets/videos/i2v/g46_ours.jpg",
-    "gt": "assets/videos/i2v/g46_gt.jpg"
-   },
-   "tag": "Collision"
+   "tag": "Solidification"
   },
   {
    "id": "g211",
@@ -259,23 +155,8 @@ window.REPA_DATA = {
    "tag": "Collision"
   },
   {
-   "id": "g230",
-   "caption": "The video captures a high-energy impact and progressive structural collapse: a…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g230_dmd2.mp4",
-    "ours": "assets/videos/i2v/g230_ours.mp4",
-    "gt": "assets/videos/i2v/g230_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g230_dmd2.jpg",
-    "ours": "assets/videos/i2v/g230_ours.jpg",
-    "gt": "assets/videos/i2v/g230_gt.jpg"
-   },
-   "tag": "Collision"
-  },
-  {
    "id": "g37",
-   "caption": "",
+   "caption": "The video captures a rapid, high-energy explosive fragmentation of a wooden…",
    "videos": {
     "dmd2": "assets/videos/i2v/g37_dmd2.mp4",
     "ours": "assets/videos/i2v/g37_ours.mp4",
@@ -285,21 +166,6 @@ window.REPA_DATA = {
     "dmd2": "assets/videos/i2v/g37_dmd2.jpg",
     "ours": "assets/videos/i2v/g37_ours.jpg",
     "gt": "assets/videos/i2v/g37_gt.jpg"
-   },
-   "tag": "Explosion"
-  },
-  {
-   "id": "g259",
-   "caption": "",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g259_dmd2.mp4",
-    "ours": "assets/videos/i2v/g259_ours.mp4",
-    "gt": "assets/videos/i2v/g259_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g259_dmd2.jpg",
-    "ours": "assets/videos/i2v/g259_ours.jpg",
-    "gt": "assets/videos/i2v/g259_gt.jpg"
    },
    "tag": "Explosion"
   },
@@ -319,36 +185,6 @@ window.REPA_DATA = {
    "tag": "Combustion"
   },
   {
-   "id": "g54",
-   "caption": "The video captures the sustained combustion of a brush pile in an open grassy…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g54_dmd2.mp4",
-    "ours": "assets/videos/i2v/g54_ours.mp4",
-    "gt": "assets/videos/i2v/g54_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g54_dmd2.jpg",
-    "ours": "assets/videos/i2v/g54_ours.jpg",
-    "gt": "assets/videos/i2v/g54_gt.jpg"
-   },
-   "tag": "Combustion"
-  },
-  {
-   "id": "g52",
-   "caption": "The video depicts a slow, continuous forward dolly through a misty pine forest…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g52_dmd2.mp4",
-    "ours": "assets/videos/i2v/g52_ours.mp4",
-    "gt": "assets/videos/i2v/g52_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g52_dmd2.jpg",
-    "ours": "assets/videos/i2v/g52_ours.jpg",
-    "gt": "assets/videos/i2v/g52_gt.jpg"
-   },
-   "tag": "Gas motion"
-  },
-  {
    "id": "g9",
    "caption": "The video captures the slow, gravity-driven melting and fluidization of a…",
    "videos": {
@@ -364,49 +200,34 @@ window.REPA_DATA = {
    "tag": "Melting"
   },
   {
-   "id": "g45",
-   "caption": "The video shows a slow thermal melting process: a small pile of solid…",
+   "id": "g92",
+   "caption": "The video captures the takeoff rotation and initial climb of a large…",
    "videos": {
-    "dmd2": "assets/videos/i2v/g45_dmd2.mp4",
-    "ours": "assets/videos/i2v/g45_ours.mp4",
-    "gt": "assets/videos/i2v/g45_gt.mp4"
+    "dmd2": "assets/videos/i2v/g92_dmd2.mp4",
+    "ours": "assets/videos/i2v/g92_ours.mp4",
+    "gt": "assets/videos/i2v/g92_gt.mp4"
    },
    "posters": {
-    "dmd2": "assets/videos/i2v/g45_dmd2.jpg",
-    "ours": "assets/videos/i2v/g45_ours.jpg",
-    "gt": "assets/videos/i2v/g45_gt.jpg"
+    "dmd2": "assets/videos/i2v/g92_dmd2.jpg",
+    "ours": "assets/videos/i2v/g92_ours.jpg",
+    "gt": "assets/videos/i2v/g92_gt.jpg"
    },
-   "tag": "Melting"
+   "tag": "Rigid body motion"
   },
   {
-   "id": "g182",
-   "caption": "The video captures the slow-motion gravitational collapse of a metastable…",
+   "id": "g101",
+   "caption": "The video captures a pressure-driven rupture and viscous fluid release: a…",
    "videos": {
-    "dmd2": "assets/videos/i2v/g182_dmd2.mp4",
-    "ours": "assets/videos/i2v/g182_ours.mp4",
-    "gt": "assets/videos/i2v/g182_gt.mp4"
+    "dmd2": "assets/videos/i2v/g101_dmd2.mp4",
+    "ours": "assets/videos/i2v/g101_ours.mp4",
+    "gt": "assets/videos/i2v/g101_gt.mp4"
    },
    "posters": {
-    "dmd2": "assets/videos/i2v/g182_dmd2.jpg",
-    "ours": "assets/videos/i2v/g182_ours.jpg",
-    "gt": "assets/videos/i2v/g182_gt.jpg"
+    "dmd2": "assets/videos/i2v/g101_dmd2.jpg",
+    "ours": "assets/videos/i2v/g101_ours.jpg",
+    "gt": "assets/videos/i2v/g101_gt.jpg"
    },
-   "tag": "Melting"
-  },
-  {
-   "id": "g18",
-   "caption": "The video captures a rapid, visible crystal growth process, specifically the…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g18_dmd2.mp4",
-    "ours": "assets/videos/i2v/g18_ours.mp4",
-    "gt": "assets/videos/i2v/g18_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g18_dmd2.jpg",
-    "ours": "assets/videos/i2v/g18_ours.jpg",
-    "gt": "assets/videos/i2v/g18_gt.jpg"
-   },
-   "tag": "Solidification"
+   "tag": "Liquid motion"
   },
   {
    "id": "g76",
@@ -424,6 +245,51 @@ window.REPA_DATA = {
    "tag": "Solidification"
   },
   {
+   "id": "g155",
+   "caption": "The video depicts a steady, low-altitude forward flight of a heavy aircraft…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g155_dmd2.mp4",
+    "ours": "assets/videos/i2v/g155_ours.mp4",
+    "gt": "assets/videos/i2v/g155_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g155_dmd2.jpg",
+    "ours": "assets/videos/i2v/g155_ours.jpg",
+    "gt": "assets/videos/i2v/g155_gt.jpg"
+   },
+   "tag": "Rigid body motion"
+  },
+  {
+   "id": "g109",
+   "caption": "The video captures the implosive collapse of a natural sea arch, a large…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g109_dmd2.mp4",
+    "ours": "assets/videos/i2v/g109_ours.mp4",
+    "gt": "assets/videos/i2v/g109_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g109_dmd2.jpg",
+    "ours": "assets/videos/i2v/g109_ours.jpg",
+    "gt": "assets/videos/i2v/g109_gt.jpg"
+   },
+   "tag": "Liquid motion"
+  },
+  {
+   "id": "g52",
+   "caption": "The video depicts a slow, continuous forward dolly through a misty pine forest…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g52_dmd2.mp4",
+    "ours": "assets/videos/i2v/g52_ours.mp4",
+    "gt": "assets/videos/i2v/g52_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g52_dmd2.jpg",
+    "ours": "assets/videos/i2v/g52_ours.jpg",
+    "gt": "assets/videos/i2v/g52_gt.jpg"
+   },
+   "tag": "Light"
+  },
+  {
    "id": "g98",
    "caption": "The video captures a slow, microscopic crystallization process: the…",
    "videos": {
@@ -437,6 +303,97 @@ window.REPA_DATA = {
     "gt": "assets/videos/i2v/g98_gt.jpg"
    },
    "tag": "Solidification"
+  },
+  {
+   "id": "g354",
+   "caption": "The video captures the takeoff roll and liftoff of a single-engine amphibious…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g354_dmd2.mp4",
+    "ours": "assets/videos/i2v/g354_ours.mp4",
+    "gt": "assets/videos/i2v/g354_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g354_dmd2.jpg",
+    "ours": "assets/videos/i2v/g354_ours.jpg",
+    "gt": "assets/videos/i2v/g354_gt.jpg"
+   },
+   "tag": "Rigid body motion"
+  },
+  {
+   "id": "g206",
+   "caption": "The video captures the continuous free-fall and impact of a powerful…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g206_dmd2.mp4",
+    "ours": "assets/videos/i2v/g206_ours.mp4",
+    "gt": "assets/videos/i2v/g206_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g206_dmd2.jpg",
+    "ours": "assets/videos/i2v/g206_ours.jpg",
+    "gt": "assets/videos/i2v/g206_gt.jpg"
+   },
+   "tag": "Liquid motion"
+  },
+  {
+   "id": "g230_3-5s",
+   "caption": "The video captures a high-energy impact and progressive structural collapse: a…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g230_3-5s_dmd2.mp4",
+    "ours": "assets/videos/i2v/g230_3-5s_ours.mp4",
+    "gt": "assets/videos/i2v/g230_3-5s_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g230_3-5s_dmd2.jpg",
+    "ours": "assets/videos/i2v/g230_3-5s_ours.jpg",
+    "gt": "assets/videos/i2v/g230_3-5s_gt.jpg"
+   },
+   "tag": "Collision",
+   "t0": 3
+  },
+  {
+   "id": "g259",
+   "caption": "The video captures the combustion and ballistic dispersion of aerial…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g259_dmd2.mp4",
+    "ours": "assets/videos/i2v/g259_ours.mp4",
+    "gt": "assets/videos/i2v/g259_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g259_dmd2.jpg",
+    "ours": "assets/videos/i2v/g259_ours.jpg",
+    "gt": "assets/videos/i2v/g259_gt.jpg"
+   },
+   "tag": "Explosion"
+  },
+  {
+   "id": "g54",
+   "caption": "The video captures the sustained combustion of a brush pile in an open grassy…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g54_dmd2.mp4",
+    "ours": "assets/videos/i2v/g54_ours.mp4",
+    "gt": "assets/videos/i2v/g54_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g54_dmd2.jpg",
+    "ours": "assets/videos/i2v/g54_ours.jpg",
+    "gt": "assets/videos/i2v/g54_gt.jpg"
+   },
+   "tag": "Combustion"
+  },
+  {
+   "id": "g45",
+   "caption": "The video shows a slow thermal melting process: a small pile of solid…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g45_dmd2.mp4",
+    "ours": "assets/videos/i2v/g45_ours.mp4",
+    "gt": "assets/videos/i2v/g45_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g45_dmd2.jpg",
+    "ours": "assets/videos/i2v/g45_ours.jpg",
+    "gt": "assets/videos/i2v/g45_gt.jpg"
+   },
+   "tag": "Melting"
   },
   {
    "id": "g116",
@@ -454,34 +411,35 @@ window.REPA_DATA = {
    "tag": "Solidification"
   },
   {
-   "id": "g133",
-   "caption": "The video captures a time-lapse of spontaneous crystallization: a clear…",
+   "id": "g46_0-2s",
+   "caption": "The video documents the steady translational motion of an elevated monorail…",
    "videos": {
-    "dmd2": "assets/videos/i2v/g133_dmd2.mp4",
-    "ours": "assets/videos/i2v/g133_ours.mp4",
-    "gt": "assets/videos/i2v/g133_gt.mp4"
+    "dmd2": "assets/videos/i2v/g46_0-2s_dmd2.mp4",
+    "ours": "assets/videos/i2v/g46_0-2s_ours.mp4",
+    "gt": "assets/videos/i2v/g46_0-2s_gt.mp4"
    },
    "posters": {
-    "dmd2": "assets/videos/i2v/g133_dmd2.jpg",
-    "ours": "assets/videos/i2v/g133_ours.jpg",
-    "gt": "assets/videos/i2v/g133_gt.jpg"
+    "dmd2": "assets/videos/i2v/g46_0-2s_dmd2.jpg",
+    "ours": "assets/videos/i2v/g46_0-2s_ours.jpg",
+    "gt": "assets/videos/i2v/g46_0-2s_gt.jpg"
    },
-   "tag": "Solidification"
+   "tag": "Rigid body motion",
+   "t0": 0
   },
   {
-   "id": "g163",
-   "caption": "The video captures the thermal coagulation of a raw egg on a hot, dark…",
+   "id": "g65",
+   "caption": "The video captures the continuous free-fall and impact of a high mountain…",
    "videos": {
-    "dmd2": "assets/videos/i2v/g163_dmd2.mp4",
-    "ours": "assets/videos/i2v/g163_ours.mp4",
-    "gt": "assets/videos/i2v/g163_gt.mp4"
+    "dmd2": "assets/videos/i2v/g65_dmd2.mp4",
+    "ours": "assets/videos/i2v/g65_ours.mp4",
+    "gt": "assets/videos/i2v/g65_gt.mp4"
    },
    "posters": {
-    "dmd2": "assets/videos/i2v/g163_dmd2.jpg",
-    "ours": "assets/videos/i2v/g163_ours.jpg",
-    "gt": "assets/videos/i2v/g163_gt.jpg"
+    "dmd2": "assets/videos/i2v/g65_dmd2.jpg",
+    "ours": "assets/videos/i2v/g65_ours.jpg",
+    "gt": "assets/videos/i2v/g65_gt.jpg"
    },
-   "tag": "Solidification"
+   "tag": "Liquid motion"
   }
  ],
  "streaming": [

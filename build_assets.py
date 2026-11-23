@@ -56,6 +56,23 @@ I2V_ORDER = ["liquid_motion", "rigid_body_motion", "collision", "explosion", "co
              "gas_motion", "melting", "solidification"]
 
 
+# per-sample revisions, keyed by the idx in the file name
+I2V_EXCLUDE = {182, 133, 163}
+I2V_TAG = {32: "Rigid body motion", 65: "Liquid motion", 46: "Rigid body motion", 52: "Light"}
+I2V_CLIP = {35: (3, 5), 46: (0, 2), 230: (3, 5)}       # seconds
+
+
+def interleave(samples, key):
+    """Mix categories: spread each category's samples evenly over the list (deterministic)."""
+    groups = {}
+    for smp in samples:
+        groups.setdefault(key(smp), []).append(smp)
+    ranked = []
+    for gi, (_, g) in enumerate(sorted(groups.items(), key=lambda kv: -len(kv[1]))):
+        ranked += [((k + 0.5) / len(g), gi, smp) for k, smp in enumerate(g)]
+    return [smp for *_, smp in sorted(ranked, key=lambda r: (r[0], r[1]))]
+
+
 def i2v_samples():
     """Held-out physical processes, grouped by category: DMD2 / DMD2 + Ours / ground truth.
     Samples come from the folders; index.tsv only supplies (truncated) captions."""
@@ -73,11 +90,15 @@ def i2v_samples():
             if not m:
                 continue
             idx = int(m.group(1))
+            if idx in I2V_EXCLUDE:
+                continue
+            clip = I2V_CLIP.get(idx)
             gt = next(g for g in files if g.startswith(f"idx{m.group(1)}_gt_"))
-            out.append(dict(id=f"g{idx}", caption=caps.get(idx, ""), tag=cat.replace("_", " ").capitalize(),
+            out.append(dict(id=f"g{idx}" + (f"_{clip[0]}-{clip[1]}s" if clip else ""), clip=clip,
+                            caption=caps.get(idx, ""), tag=I2V_TAG.get(idx, cat.replace("_", " ").capitalize()),
                             videos={"dmd2": s(I2V_DIR, cat, f"idx{m.group(1)}_baseline_dmd2.mp4"),
                                     "ours": s(I2V_DIR, cat, f), "gt": s(I2V_DIR, cat, gt)}))
-    return out
+    return interleave(out, key=lambda smp: smp["tag"])
 
 
 def stream_sample(dmd2_path, repa_path):
