@@ -94,7 +94,36 @@
     const btnPrev = el("button", { class: "nav prev", type: "button", "aria-label": "Previous sample" });
     const btnNext = el("button", { class: "nav next", type: "button", "aria-label": "Next sample" });
     btnPrev.innerHTML = ICON_PREV; btnNext.innerHTML = ICON_NEXT;
-    const stageWrap = el("div", { class: "stage-wrap" }, [stage, samples.length > 1 ? btnPrev : null, samples.length > 1 ? btnNext : null]);
+    // carousel: [ghost -2, ghost -1, live stage, ghost +1, ghost +2]; ghosts are faint poster
+    // copies of the neighbouring samples, so a slide reveals the next sample before it loads.
+    const multi = samples.length > 1;
+    const ghosts = new Map([-2, -1, 1, 2].map((o) => [o, el("div", { class: "stage ghost", "aria-hidden": "true" })]));
+    const slideOf = (o) => (o === 0 ? stage : ghosts.get(o));
+    const track = el("div", { class: "track" }, multi ? [-2, -1, 0, 1, 2].map(slideOf) : [stage]);
+    const stageWrap = el("div", { class: "stage-wrap" + (multi ? " carousel" : "") }, [track, multi ? btnPrev : null, multi ? btnNext : null]);
+    const fillGhost = (g, s) => {
+      g.replaceChildren(...methods.filter((m) => s.videos[m.key]).map((m) => {
+        const c = cells.find((x) => x.m === m);
+        return el("div", { class: c.node.className }, [el("img", { src: s.posters[m.key], alt: "", decoding: "async" }), el("span", { class: "label", text: m.label })]);
+      }));
+      g.style.setProperty("--cols", g.childElementCount);
+      g.dataset.idx = samples.indexOf(s);
+    };
+    const wrap = (i) => (i + samples.length) % samples.length;
+    let slideW = 0, gap = 14, peek = 0, animating = false;
+    const baseX = () => -2 * (slideW + gap) + peek + gap;
+    const layout = () => {
+      if (!multi) return;
+      const W = stageWrap.clientWidth;
+      peek = Math.round(Math.min(96, Math.max(22, W * 0.06)));
+      gap = W < 640 ? 10 : 14;
+      slideW = W - 2 * (peek + gap);
+      track.querySelectorAll(":scope > .stage").forEach((n) => { n.style.width = slideW + "px"; });
+      stageWrap.style.setProperty("--peek", peek + gap + "px");
+      if (!animating) track.style.transform = `translateX(${baseX()}px)`;
+    };
+    if (multi && "ResizeObserver" in window) new ResizeObserver(layout).observe(stageWrap);
+    else window.addEventListener("resize", layout);
     const btnPlay = el("button", { class: "ctrl", type: "button", "aria-label": "Play" });
     btnPlay.innerHTML = ICON_PLAY;
     const btnRestart = el("button", { class: "ctrl", type: "button", "aria-label": "Restart" });
@@ -122,7 +151,17 @@
     });
     const controls = el("div", { class: "controls" }, [btnPlay, btnRestart, scrub, time, speedBox]);
     const caption = el("p", { class: "caption" });
-    root.append(stageWrap, controls, caption);
+    // compact sample strip for jumping straight to a sample
+    const strip = el("div", { class: "strip", role: "group", "aria-label": "Jump to sample" });
+    const thumbs = samples.map((s, i) => {
+      const b = el("button", { class: "thumb", type: "button", "aria-pressed": "false",
+        "aria-label": `Sample ${i + 1}${s.tag ? " · " + s.tag : ""}`, title: [s.tag, s.caption].filter(Boolean).join(" · ") || `Sample ${i + 1}` },
+        [el("img", { src: s.posters.ours, alt: "", loading: "lazy", decoding: "async" }), el("span", { text: String(i + 1) })]);
+      b.addEventListener("click", () => go(i));
+      strip.append(b);
+      return b;
+    });
+    root.append(stageWrap, controls, caption, multi ? strip : null);
 
     const allVids = cells.map((c) => c.v);
     let vids = allVids;          // columns present for the current sample (some are optional)
@@ -151,8 +190,13 @@
       stage.style.setProperty("--cols", vids.length);
       loaded = true;
       caption.innerHTML = "";
-      caption.append(el("span", { class: "cap-k", text: `${idx + 1} / ${samples.length}` }),
-        s.tag ? el("span", { class: "cap-tag", text: s.tag }) : null, document.createTextNode(s.caption));
+      caption.append(...[el("span", { class: "cap-k", text: `${idx + 1} / ${samples.length}` }),
+        s.tag && el("span", { class: "cap-tag", text: s.tag }), document.createTextNode(s.caption)].filter(Boolean));
+      thumbs.forEach((b, i) => b.setAttribute("aria-pressed", i === idx ? "true" : "false"));
+      const tb = thumbs[idx];
+      if (tb && strip.scrollWidth > strip.clientWidth)   // keep the active thumb in view (no page scroll)
+        strip.scrollTo({ left: tb.offsetLeft - (strip.clientWidth - tb.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+      if (multi) for (const [o, g] of ghosts) fillGhost(g, samples[wrap(idx + o)]);
       if (frac > 0) {     // speed change: keep the same position in the rollout
         vids.forEach((v) => {
           const go = () => { try { v.currentTime = frac * v.duration; } catch (_) {} };
@@ -162,13 +206,48 @@
       if (visible) playAll(); else pauseAll();
     }
 
-    const step = (d) => load((current + d + samples.length) % samples.length);
+    // slide to sample `target` from direction `dir` (+1: comes in from the right)
+    function go(target, dir) {
+      target = wrap(target);
+      if (target === current || animating) return;
+      if (!loaded) { load(target); return; }
+      dir = dir || (target > current ? 1 : -1);
+      if (reduceMotion || !slideW) { load(target); return; }
+      pauseAll();
+      fillGhost(ghosts.get(dir), samples[target]);              // jumps: show the target next door
+      fillGhost(ghosts.get(2 * dir), samples[wrap(target + dir)]);
+      animating = true;
+      stageWrap.classList.add("moving");
+      ghosts.get(dir).classList.add("incoming");
+      stage.classList.add("outgoing");
+      track.style.transition = "transform .55s cubic-bezier(.22,.8,.24,1)";
+      track.style.transform = `translateX(${baseX() - dir * (slideW + gap)}px)`;
+      let done = false;
+      const finish = () => {
+        if (done) return; done = true;
+        track.removeEventListener("transitionend", onEnd);
+        track.style.transition = "none";
+        stageWrap.classList.remove("moving");
+        ghosts.get(dir).classList.remove("incoming");
+        stage.classList.remove("outgoing");
+        load(target);                                           // live videos start on the same poster
+        track.style.transform = `translateX(${baseX()}px)`;
+        void track.offsetWidth;                                 // commit the jump before re-enabling motion
+        track.style.transition = "";
+        animating = false;
+      };
+      const onEnd = (e) => { if (e.target === track && e.propertyName === "transform") finish(); };
+      track.addEventListener("transitionend", onEnd);
+      setTimeout(finish, 800);                                  // fallback if transitionend is missed
+    }
+    const step = (d) => go(current + d, d);
     btnPrev.addEventListener("click", () => step(-1));
     btnNext.addEventListener("click", () => step(1));
+    ghosts.forEach((g, o) => g.addEventListener("click", () => step(Math.sign(o))));
     // swipe left/right on touch screens
     let sx = null;
-    stage.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
-    stage.addEventListener("touchend", (e) => {
+    stageWrap.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    stageWrap.addEventListener("touchend", (e) => {
       if (sx === null) return;
       const dx = e.changedTouches[0].clientX - sx; sx = null;
       if (Math.abs(dx) > 50 && samples.length > 1) step(dx < 0 ? 1 : -1);
@@ -214,14 +293,14 @@
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
         visible = e.isIntersecting && !root.closest("[hidden]");
-        if (visible && !loaded) load(0);
+        if (visible && !loaded) { layout(); load(0); }
         else if (visible && !reduceMotion) playAll();
         else if (!visible && playing) pauseAll();
       }
     }, { threshold: 0.25 });
     io.observe(root);
     root._pause = pauseAll;
-    root._wake = () => { visible = true; if (!loaded) load(0); else if (!reduceMotion) playAll(); };
+    root._wake = () => { visible = true; layout(); if (!loaded) load(0); else if (!reduceMotion) playAll(); };
     if (reduceMotion) playing = false;
   }
 
