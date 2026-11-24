@@ -88,7 +88,9 @@
       const v = el("video", { muted: "", playsinline: "", preload: "none" });
       v.muted = true;
       const kind = m.key === "ours" ? "ours" : m.key === "teacher" ? "teacher" : m.key === "gt" ? "gt" : "base";
-      return { m, v, node: el("div", { class: `cell ${kind}` }, [v, el("span", { class: "label", text: m.label })]) };
+      // still: poster image laid over the video until its first frame is on screen (no black flash)
+      const still = el("img", { class: "still", alt: "", decoding: "sync" });
+      return { m, v, still, node: el("div", { class: `cell ${kind}` }, [v, still, el("span", { class: "label", text: m.label })]) };
     });
     const stage = el("div", { class: "stage" }, cells.map((c) => c.node));
     const btnPrev = el("button", { class: "nav prev", type: "button", "aria-label": "Previous sample" });
@@ -173,14 +175,22 @@
     const pauseAll = () => { playing = false; setPlayIcon(); vids.forEach((v) => v.pause()); };
     const seekAll = (t) => vids.forEach((v) => { try { v.currentTime = t; } catch (_) {} });
 
+    let loadTok = 0;
     function load(idx, frac = 0) {
       current = idx;
+      loadTok++;
       const s = samples[idx];
       pauseAll();
       cells.forEach((c) => {
         const has = !!s.videos[c.m.key];
         c.node.hidden = !has;
-        if (has) { c.v.poster = s.posters[c.m.key]; c.v.src = srcOf(s, c.m.key, rate); c.v.load(); }
+        if (has) {
+          c.still.src = s.posters[c.m.key]; c.still.classList.remove("off");
+          c.v.poster = s.posters[c.m.key]; c.v.src = srcOf(s, c.m.key, rate); c.v.load();
+          const tok = loadTok, reveal = () => { if (tok === loadTok) c.still.classList.add("off"); };
+          if (c.v.requestVideoFrameCallback) c.v.requestVideoFrameCallback(reveal);
+          else c.v.addEventListener("playing", reveal, { once: true });
+        }
         else { c.v.removeAttribute("src"); c.v.removeAttribute("poster"); c.v.load(); }
       });
       vrate = rateOf(s);
@@ -216,6 +226,7 @@
       pauseAll();
       fillGhost(ghosts.get(dir), samples[target]);              // jumps: show the target next door
       fillGhost(ghosts.get(2 * dir), samples[wrap(target + dir)]);
+      for (const m of methods) if (samples[target].posters[m.key]) { const im = new Image(); im.src = samples[target].posters[m.key]; im.decode && im.decode().catch(() => {}); }
       animating = true;
       stageWrap.classList.add("moving");
       ghosts.get(dir).classList.add("incoming");
@@ -226,14 +237,18 @@
       const finish = () => {
         if (done) return; done = true;
         track.removeEventListener("transitionend", onEnd);
+        // swap instantly: no transform or opacity transitions while the slides are reset
+        const slides = [...track.children];
         track.style.transition = "none";
+        slides.forEach((n) => { n.style.transition = "none"; });
         stageWrap.classList.remove("moving");
         ghosts.get(dir).classList.remove("incoming");
         stage.classList.remove("outgoing");
-        load(target);                                           // live videos start on the same poster
+        load(target);                                           // live cells show the same poster at once
         track.style.transform = `translateX(${baseX()}px)`;
-        void track.offsetWidth;                                 // commit the jump before re-enabling motion
+        void track.offsetWidth;                                 // commit the reset before re-enabling motion
         track.style.transition = "";
+        slides.forEach((n) => { n.style.transition = ""; });
         animating = false;
       };
       const onEnd = (e) => { if (e.target === track && e.propertyName === "transform") finish(); };

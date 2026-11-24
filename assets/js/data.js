@@ -94,6 +94,96 @@ window.REPA_DATA = {
  ],
  "i2v": [
   {
+   "id": "g37",
+   "caption": "The video captures a rapid, high-energy explosive fragmentation of a wooden…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g37_dmd2.mp4",
+    "ours": "assets/videos/i2v/g37_ours.mp4",
+    "gt": "assets/videos/i2v/g37_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g37_dmd2.jpg",
+    "ours": "assets/videos/i2v/g37_ours.jpg",
+    "gt": "assets/videos/i2v/g37_gt.jpg"
+   },
+   "tag": "Explosion"
+  },
+  {
+   "id": "g76",
+   "caption": "The video captures the slow, diffusion-driven dissolution of a white, fibrous…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g76_dmd2.mp4",
+    "ours": "assets/videos/i2v/g76_ours.mp4",
+    "gt": "assets/videos/i2v/g76_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g76_dmd2.jpg",
+    "ours": "assets/videos/i2v/g76_ours.jpg",
+    "gt": "assets/videos/i2v/g76_gt.jpg"
+   },
+   "tag": "Solidification"
+  },
+  {
+   "id": "g109",
+   "caption": "The video captures the implosive collapse of a natural sea arch, a large…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g109_dmd2.mp4",
+    "ours": "assets/videos/i2v/g109_ours.mp4",
+    "gt": "assets/videos/i2v/g109_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g109_dmd2.jpg",
+    "ours": "assets/videos/i2v/g109_ours.jpg",
+    "gt": "assets/videos/i2v/g109_gt.jpg"
+   },
+   "tag": "Liquid motion"
+  },
+  {
+   "id": "g52",
+   "caption": "The video depicts a slow, continuous forward dolly through a misty pine forest…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g52_dmd2.mp4",
+    "ours": "assets/videos/i2v/g52_ours.mp4",
+    "gt": "assets/videos/i2v/g52_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g52_dmd2.jpg",
+    "ours": "assets/videos/i2v/g52_ours.jpg",
+    "gt": "assets/videos/i2v/g52_gt.jpg"
+   },
+   "tag": "Light"
+  },
+  {
+   "id": "g98",
+   "caption": "The video captures a slow, microscopic crystallization process: the…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g98_dmd2.mp4",
+    "ours": "assets/videos/i2v/g98_ours.mp4",
+    "gt": "assets/videos/i2v/g98_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g98_dmd2.jpg",
+    "ours": "assets/videos/i2v/g98_ours.jpg",
+    "gt": "assets/videos/i2v/g98_gt.jpg"
+   },
+   "tag": "Solidification"
+  },
+  {
+   "id": "g354",
+   "caption": "The video captures the takeoff roll and liftoff of a single-engine amphibious…",
+   "videos": {
+    "dmd2": "assets/videos/i2v/g354_dmd2.mp4",
+    "ours": "assets/videos/i2v/g354_ours.mp4",
+    "gt": "assets/videos/i2v/g354_gt.mp4"
+   },
+   "posters": {
+    "dmd2": "assets/videos/i2v/g354_dmd2.jpg",
+    "ours": "assets/videos/i2v/g354_ours.jpg",
+    "gt": "assets/videos/i2v/g354_gt.jpg"
+   },
+   "tag": "Rigid body motion"
+  },
+  {
    "id": "g32",
    "caption": "The video shows a small motorized LEGO Technic rover climbing up onto a thick…",
    "videos": {
@@ -153,21 +243,6 @@ window.REPA_DATA = {
     "gt": "assets/videos/i2v/g211_gt.jpg"
    },
    "tag": "Collision"
-  },
-  {
-   "id": "g37",
-   "caption": "The video captures a rapid, high-energy explosive fragmentation of a wooden…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g37_dmd2.mp4",
-    "ours": "assets/videos/i2v/g37_ours.mp4",
-    "gt": "assets/videos/i2v/g37_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g37_dmd2.jpg",
-    "ours": "assets/videos/i2v/g37_ours.jpg",
-    "gt": "assets/videos/i2v/g37_gt.jpg"
-   },
-   "tag": "Explosion"
   },
   {
    "id": "g43",
@@ -230,21 +305,6 @@ window.REPA_DATA = {
    "tag": "Liquid motion"
   },
   {
-   "id": "g76",
-   "caption": "The video captures the slow, diffusion-driven dissolution of a white, fibrous…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g76_dmd2.mp4",
-    "ours": "assets/videos/i2v/g76_ours.mp4",
-    "gt": "assets/videos/i2v/g76_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g76_dmd2.jpg",
-    "ours": "assets/videos/i2v/g76_ours.jpg",
-    "gt": "assets/videos/i2v/g76_gt.jpg"
-   },
-   "tag": "Solidification"
-  },
-  {
    "id": "g155",
    "caption": "The video depicts a steady, low-altitude forward flight of a heavy aircraft…",
    "videos": {
@@ -256,66 +316,6 @@ window.REPA_DATA = {
     "dmd2": "assets/videos/i2v/g155_dmd2.jpg",
     "ours": "assets/videos/i2v/g155_ours.jpg",
     "gt": "assets/videos/i2v/g155_gt.jpg"
-   },
-   "tag": "Rigid body motion"
-  },
-  {
-   "id": "g109",
-   "caption": "The video captures the implosive collapse of a natural sea arch, a large…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g109_dmd2.mp4",
-    "ours": "assets/videos/i2v/g109_ours.mp4",
-    "gt": "assets/videos/i2v/g109_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g109_dmd2.jpg",
-    "ours": "assets/videos/i2v/g109_ours.jpg",
-    "gt": "assets/videos/i2v/g109_gt.jpg"
-   },
-   "tag": "Liquid motion"
-  },
-  {
-   "id": "g52",
-   "caption": "The video depicts a slow, continuous forward dolly through a misty pine forest…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g52_dmd2.mp4",
-    "ours": "assets/videos/i2v/g52_ours.mp4",
-    "gt": "assets/videos/i2v/g52_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g52_dmd2.jpg",
-    "ours": "assets/videos/i2v/g52_ours.jpg",
-    "gt": "assets/videos/i2v/g52_gt.jpg"
-   },
-   "tag": "Light"
-  },
-  {
-   "id": "g98",
-   "caption": "The video captures a slow, microscopic crystallization process: the…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g98_dmd2.mp4",
-    "ours": "assets/videos/i2v/g98_ours.mp4",
-    "gt": "assets/videos/i2v/g98_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g98_dmd2.jpg",
-    "ours": "assets/videos/i2v/g98_ours.jpg",
-    "gt": "assets/videos/i2v/g98_gt.jpg"
-   },
-   "tag": "Solidification"
-  },
-  {
-   "id": "g354",
-   "caption": "The video captures the takeoff roll and liftoff of a single-engine amphibious…",
-   "videos": {
-    "dmd2": "assets/videos/i2v/g354_dmd2.mp4",
-    "ours": "assets/videos/i2v/g354_ours.mp4",
-    "gt": "assets/videos/i2v/g354_gt.mp4"
-   },
-   "posters": {
-    "dmd2": "assets/videos/i2v/g354_dmd2.jpg",
-    "ours": "assets/videos/i2v/g354_ours.jpg",
-    "gt": "assets/videos/i2v/g354_gt.jpg"
    },
    "tag": "Rigid body motion"
   },
@@ -466,28 +466,6 @@ window.REPA_DATA = {
    }
   },
   {
-   "id": "p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof",
-   "caption": "A dynamic shot from behind a white vintage SUV with a black roof rack as it speeds up a steep dirt r…",
-   "videos": {
-    "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf.mp4",
-    "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours.mp4"
-   },
-   "posters": {
-    "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf.jpg",
-    "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours.jpg"
-   },
-   "fast": {
-    "5": {
-     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf_x5.mp4",
-     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours_x5.mp4"
-    },
-    "2": {
-     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf_x2.mp4",
-     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours_x2.mp4"
-    }
-   }
-  },
-  {
    "id": "p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese",
    "caption": "A detailed digital painting in the style of a realistic Japanese manga, capturing reflections in the…",
    "videos": {
@@ -506,28 +484,6 @@ window.REPA_DATA = {
     "2": {
      "sf": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_sf_x2.mp4",
      "ours": "assets/videos/streaming/p-a-detailed-digital-painting-in-the-style-of-a-realistic-japanese_ours_x2.mp4"
-    }
-   }
-  },
-  {
-   "id": "p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l",
-   "caption": "A dramatic and surreal scene in the style of a fantasy comic, a lightning bolt strikes a turtle in t…",
-   "videos": {
-    "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf.mp4",
-    "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours.mp4"
-   },
-   "posters": {
-    "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf.jpg",
-    "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours.jpg"
-   },
-   "fast": {
-    "5": {
-     "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf_x5.mp4",
-     "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours_x5.mp4"
-    },
-    "2": {
-     "sf": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_sf_x2.mp4",
-     "ours": "assets/videos/streaming/p-a-dramatic-and-surreal-scene-in-the-style-of-a-fantasy-comic-a-l_ours_x2.mp4"
     }
    }
   },
@@ -638,6 +594,28 @@ window.REPA_DATA = {
     "2": {
      "sf": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_sf_x2.mp4",
      "ours": "assets/videos/streaming/p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi_ours_x2.mp4"
+    }
+   }
+  },
+  {
+   "id": "p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof",
+   "caption": "A dynamic shot from behind a white vintage SUV with a black roof rack as it speeds up a steep dirt r…",
+   "videos": {
+    "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf.mp4",
+    "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours.mp4"
+   },
+   "posters": {
+    "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf.jpg",
+    "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours.jpg"
+   },
+   "fast": {
+    "5": {
+     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf_x5.mp4",
+     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours_x5.mp4"
+    },
+    "2": {
+     "sf": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_sf_x2.mp4",
+     "ours": "assets/videos/streaming/p-a-dynamic-shot-from-behind-a-white-vintage-suv-with-a-black-roof_ours_x2.mp4"
     }
    }
   }

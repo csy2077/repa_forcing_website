@@ -150,6 +150,24 @@ SETTINGS = {
 SPEEDS = {"streaming": {5: 40, 2: 32}}
 
 
+# final per-setting curation, matching sample ids by prefix: drop some, pin some to the
+# front (in the listed order) or the back; everything else keeps its relative order.
+CURATE = {
+    "i2v": dict(first=["g37", "g76", "g109", "g52", "g98", "g354"]),
+    "streaming": dict(drop=["p-a-dramatic-and-surreal-scene"], last=["p-a-dynamic-shot-from-behind-a-white-vintage-suv"]),
+}
+
+
+def curate(setting, samples):
+    rule = CURATE.get(setting, {})
+    hit = lambda smp, keys: next((i for i, k in enumerate(keys) if smp["id"] == k or smp["id"].startswith(k + "_") or (k.startswith("p-") and smp["id"].startswith(k))), None)
+    samples = [smp for smp in samples if hit(smp, rule.get("drop", [])) is None]
+    first = sorted((smp for smp in samples if hit(smp, rule.get("first", [])) is not None), key=lambda smp: hit(smp, rule["first"]))
+    last = [smp for smp in samples if hit(smp, rule.get("last", [])) is not None]
+    rest = [smp for smp in samples if smp not in first and smp not in last]
+    return first + rest + last
+
+
 def encode(job):
     src, dst, poster, clip, speed = job
     if os.path.exists(dst) and (poster is None or os.path.exists(poster)):
@@ -175,6 +193,7 @@ def encode(job):
 def main():
     jobs, data, keep = [], {}, set()
     for setting, samples in SETTINGS.items():
+        samples = curate(setting, samples)
         data[setting] = []
         ids = [smp["id"] for smp in samples]
         assert len(ids) == len(set(ids)), f"duplicate ids in {setting}"
