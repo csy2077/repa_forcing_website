@@ -154,7 +154,7 @@ SPEEDS = {"streaming": {5: 40, 2: 32}}
 # front (in the listed order) or the back; everything else keeps its relative order.
 CURATE = {
     "i2v": dict(first=["g37", "g76", "g109", "g52", "g98", "g354"]),
-    "streaming": dict(drop=["p-a-dramatic-and-surreal-scene"], last=["p-a-dynamic-shot-from-behind-a-white-vintage-suv"]),
+    "streaming": dict(drop=["p-a-dramatic-and-surreal-scene", "p-a-close-up-shot-of-someone-carefully-pouring-mil"], last=["p-a-dynamic-shot-from-behind-a-white-vintage-suv"]),
 }
 
 

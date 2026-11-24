@@ -554,28 +554,6 @@ window.REPA_DATA = {
    }
   },
   {
-   "id": "p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit",
-   "caption": "A close-up shot of someone carefully pouring milk into a cup, with the milk flowing smoothly and fil…",
-   "videos": {
-    "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf.mp4",
-    "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours.mp4"
-   },
-   "posters": {
-    "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf.jpg",
-    "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours.jpg"
-   },
-   "fast": {
-    "5": {
-     "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf_x5.mp4",
-     "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours_x5.mp4"
-    },
-    "2": {
-     "sf": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_sf_x2.mp4",
-     "ours": "assets/videos/streaming/p-a-close-up-shot-of-someone-carefully-pouring-milk-into-a-cup-wit_ours_x2.mp4"
-    }
-   }
-  },
-  {
    "id": "p-a-detailed-digital-painting-style-illustration-of-a-small-man-wi",
    "caption": "A detailed digital painting style illustration of a small man with a cheerful expression, holding se…",
    "videos": {
